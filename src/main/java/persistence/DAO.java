@@ -22,7 +22,7 @@ public class DAO {
     public static List<User> getUsers() {
         ArrayList<User> users = new ArrayList<>();
         try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement("SELECT fname, lname, email, dob, tel, country, city FROM guestbook");
+             PreparedStatement ps = c.prepareStatement("SELECT * FROM guestbook");
              ResultSet resultSet = ps.executeQuery();) {
             while (resultSet.next()) {
                 String fname = resultSet.getString(1);
@@ -74,13 +74,13 @@ public class DAO {
             e.printStackTrace();
         }
     }
-    public static List<User> getWithCountry(String co) throws SQLException, ClassNotFoundException{
+    public static List<User> getWithCountry(String cntr) {
+        ArrayList<User> users = new ArrayList<>();
         try (Connection c = getConnection();
-             PreparedStatement ps = c.prepareStatement("SELECT fname, lname, email, dob, tel, country, city FROM guestbook WHERE country=?");
+             PreparedStatement ps = c.prepareStatement("SELECT * FROM guestbook WHERE country=?");
              ) {
-            ps.setString(1, co);
+            ps.setString(1, cntr);
             ResultSet resultSet = ps.executeQuery();
-            ArrayList<User> users = new ArrayList<>();
             while (resultSet.next()) {
                 String fname = resultSet.getString(1);
                 String lname = resultSet.getString(2);
@@ -91,7 +91,11 @@ public class DAO {
                 String city = resultSet.getString(7);
                 users.add(new User(fname, lname, email, dob, tel, country, city));
             }
-            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return users;
     }
-    }
+}
