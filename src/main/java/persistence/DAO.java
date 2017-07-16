@@ -37,6 +37,27 @@ public class DAO {
             return users;
         }
     }
+
+    public static void insertToDb(String fname, String lname, String email, String dob,
+                           String tel, String country, String city) {
+        try (Connection c = DAO.getConnection();
+             PreparedStatement ps = c.prepareStatement("INSERT INTO guestbook values (?, ?, ?, ?, ?, ?, ?)");) {
+            ps.setString(1, fname);
+            ps.setString(2, lname);
+            ps.setString(3, email);
+            ps.setString(4, dob);
+            ps.setString(5, tel);
+            ps.setString(6, country);
+            ps.setString(7, city);
+
+            ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public static void deletePost(String lname) throws ClassNotFoundException, SQLException{
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement("DELETE from guestbook WHERE lname=?");
