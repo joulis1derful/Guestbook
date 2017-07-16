@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "DeleteUserController", urlPatterns = "/guests/delete")
+@WebServlet(name = "DeleteUserController", urlPatterns = "/users/delete")
 public class DeleteUserController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
@@ -18,11 +18,7 @@ public class DeleteUserController extends HttpServlet {
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String lname = request.getParameter("lname");
-        try{
-            DAO.deletePost(lname);
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        response.sendRedirect("/guests");
+        DAO.deletePost(lname);
+        response.sendRedirect("/users");
     }
 }
