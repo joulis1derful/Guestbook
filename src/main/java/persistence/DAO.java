@@ -19,11 +19,11 @@ public class DAO {
         return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
     }
 
-    public static List<User> getPosts() throws SQLException, ClassNotFoundException {
+    public static List<User> getUsers() {
+        ArrayList<User> users = new ArrayList<>();
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement("SELECT fname, lname, email, dob, tel, country, city FROM guestbook");
              ResultSet resultSet = ps.executeQuery();) {
-            ArrayList<User> users = new ArrayList<>();
             while (resultSet.next()) {
                 String fname = resultSet.getString(1);
                 String lname = resultSet.getString(2);
@@ -34,8 +34,12 @@ public class DAO {
                 String city = resultSet.getString(7);
                 users.add(new User(fname, lname, email, dob, tel, country, city));
             }
-            return users;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
+        return users;
     }
 
     public static void insertToDb(String fname, String lname, String email, String dob,
@@ -58,12 +62,16 @@ public class DAO {
         }
     }
 
-    public static void deletePost(String lname) throws ClassNotFoundException, SQLException{
+    public static void deletePost(String lname) {
         try (Connection c = getConnection();
              PreparedStatement ps = c.prepareStatement("DELETE from guestbook WHERE lname=?");
         ){
             ps.setString(1, lname);
             ps.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
         }
     }
     public static List<User> getWithCountry(String co) throws SQLException, ClassNotFoundException{
