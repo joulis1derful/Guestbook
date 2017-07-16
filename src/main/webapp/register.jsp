@@ -5,10 +5,10 @@
 <head>
     <link rel="stylesheet", href="style.css">
     <meta http-equiv="Content-Type" content="text/html; utf-8">
-    <title>Register</title>
+    <title>Registration</title>
 </head>
 <body>
-<form action="register.jsp" method="POST">
+<form action="/register" method="post">
     <table border="0">
         <tbody>
         <tr>
