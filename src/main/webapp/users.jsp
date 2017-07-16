@@ -28,7 +28,7 @@
             <td>+${guest.tel}</td>
             <td><a href="country?co=${guest.country}">${guest.country}</a></td>
             <td>${guest.city}</td>
-            <td><a href="delete?lname=${guest.lname}"><img src="minus.png"></a></td>
+            <td><a href="users/delete?lname=${guest.lname}"><img src="minus.png"></a></td>
         </tr>
     </c:forEach>
 </table>
@@ -43,19 +43,6 @@
         <br>
         <br>
 
-   <%--<%--%>
-        <%--List<User> userList = DAO.getWithCountry(request.getParameter("country"));--%>
-        <%--for(int i = 0; i<userList.size(); i++){--%>
-            <%--out.print("\t  "+userList.get(i).getFname());--%>
-             <%--out.print("\t  "+userList.get(i).getLname());--%>
-              <%--out.print("\t  "+userList.get(i).getEmail());--%>
-               <%--out.print("\t  "+userList.get(i).getDob());--%>
-                <%--out.print("\t  "+userList.get(i).getTel());--%>
-                 <%--out.print("\t  "+userList.get(i).getCountry());--%>
-                  <%--out.print("\t  "+userList.get(i).getCity());--%>
-        <%--}--%>
-
-       <%--%>--%>
         <br>
 <br>
 <br>
