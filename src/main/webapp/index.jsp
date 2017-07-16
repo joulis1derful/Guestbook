@@ -7,7 +7,7 @@
   <title>Main page</title>
 </head>
 <body>
-<a href="/users">Guests</a>
+<a href="/users">Users</a>
 </br>
 </br>
 <a href="/register">Register</a>

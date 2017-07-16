@@ -20,7 +20,7 @@ public class RegisterController extends HttpServlet {
         String country = request.getParameter("country");
         String city = request.getParameter("city");
         DAO.insertToDb(fname, lname, email, dob, tel, country, city);
-        response.sendRedirect("/guests");
+        response.sendRedirect("/users");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
