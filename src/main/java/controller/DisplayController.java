@@ -10,18 +10,13 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.sql.SQLException;
 
-@WebServlet(name = "DisplayController", urlPatterns = "/guests")
+@WebServlet(name = "DisplayController", urlPatterns = "/users")
 public class DisplayController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        try {
-            request.setAttribute("guests", DAO.getPosts());
-        } catch (SQLException | ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        request.getRequestDispatcher("guests.jsp").forward(request,response);
+        request.setAttribute("users", DAO.getUsers());
+        request.getRequestDispatcher("users.jsp").forward(request,response);
     }
 }
