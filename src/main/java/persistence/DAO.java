@@ -3,20 +3,28 @@ package persistence;
 import model.User;
 import model.User;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Properties;
 
 public class DAO {
 
-    public final static String DB_DRIVER = "com.mysql.jdbc.Driver";
-    public final static String DB_URL = "jdbc:mysql://localhost:3306/mydbtest";
-    public final static String DB_USERNAME = "root";
-    public final static String DB_PASSWORD = "root";
+    private static Connection getConnection() throws ClassNotFoundException, SQLException, IOException {
+        InputStream inputStream = DAO.class.getClassLoader()
+                .getResourceAsStream("db.properties");
+        Properties properties = new Properties();
+        properties.load(inputStream);
 
-    public static Connection getConnection() throws ClassNotFoundException, SQLException {
-        Class.forName(DB_DRIVER);
-        return DriverManager.getConnection(DB_URL, DB_USERNAME, DB_PASSWORD);
+        String dbDriver = properties.getProperty("db.driver");
+        String connectionUrl = properties.getProperty("db.url");
+        String username = properties.getProperty("db.username");
+        String password = properties.getProperty("db.password");
+
+        Class.forName(dbDriver);
+        return DriverManager.getConnection(connectionUrl, username, password);
     }
 
     public static List<User> getUsers() {
@@ -37,6 +45,8 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return users;
@@ -59,6 +69,8 @@ public class DAO {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
@@ -71,6 +83,8 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -94,6 +108,8 @@ public class DAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return users;
