@@ -1,13 +1,13 @@
 package model;
 
 public class User {
-    String fname;
-    String lname;
-    String email;
-    String dob;
-    String tel;
-    String country;
-    String city;
+   private String fname;
+   private String lname;
+   private String email;
+   private String dob;
+   private String tel;
+   private String country;
+   private String city;
 
     public User(String fname, String lname, String email, String dob, String tel, String country, String city)
     {
