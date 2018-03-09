@@ -8,6 +8,7 @@
 
 <table class="guests-table">
     <tr>
+        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>E-mail</th>
@@ -20,6 +21,7 @@
 
     <c:forEach items="${requestScope.users}" var="guest">
         <tr>
+            <td>${guest.id}</td>
             <td>${guest.fname}</td>
             <td>${guest.lname}</td>
             <td>${guest.email}</td>
@@ -42,6 +44,7 @@
 <table class="guests-table">
 <c:forEach items="${requestScope.filteredbycountry}" var="guest">
     <tr>
+        <th>ID</th>
         <th>First Name</th>
         <th>Last Name</th>
         <th>E-mail</th>
@@ -51,6 +54,7 @@
         <th>City</th>
     </tr>
     <tr>
+        <td>${guest.id}</td>
         <td>${guest.fname}</td>
         <td>${guest.lname}</td>
         <td>${guest.email}</td>

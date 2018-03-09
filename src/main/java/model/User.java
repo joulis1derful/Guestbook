@@ -1,6 +1,7 @@
 package model;
 
 public class User {
+   private int id;
    private String fname;
    private String lname;
    private String email;
@@ -9,8 +10,9 @@ public class User {
    private String country;
    private String city;
 
-    public User(String fname, String lname, String email, String dob, String tel, String country, String city)
+    public User(int id, String fname, String lname, String email, String dob, String tel, String country, String city)
     {
+        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -18,6 +20,10 @@ public class User {
         this.tel = tel;
         this.country = country;
         this.city = city;
+    }
+
+    public int getId() {
+        return id;
     }
 
     public String getFname() {
