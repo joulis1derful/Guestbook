@@ -9,28 +9,28 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-@WebServlet(name = "DisplayController", urlPatterns = "/users")
-public class DisplayController extends HttpServlet {
+@WebServlet(name = "JoinUsersByVisitTimeController", urlPatterns = "/join")
+public class JoinUsersByVisitTimeController extends HttpServlet {
     private List<User> users;
-    public DisplayController() {
+    public JoinUsersByVisitTimeController() {
         super();
         users = new ArrayList<>();
     }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String country = request.getParameter("country");
-        users = DAO.getWithCountry(country);
-        request.setAttribute("users", users);
-        request.getRequestDispatcher("users.jsp").forward(request,response);
-//        response.sendRedirect("/users");
+
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        request.setAttribute("users", DAO.getUsers());
-//        request.setAttribute("filteredbycountry", users);
+        String date = request.getParameter("date");
+        users = DAO.getUsersWithVisitTime(date);
+        request.setAttribute("users", users);
+        for(User user : users) {
+            System.out.println(user.getLname());
+        }
         request.getRequestDispatcher("users.jsp").forward(request,response);
     }
 }

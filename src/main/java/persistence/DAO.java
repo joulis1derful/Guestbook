@@ -1,17 +1,16 @@
 package persistence;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import model.ConnectionData;
-import model.User;
 import model.User;
 
 import javax.xml.bind.*;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 import java.util.Date;
 
 public class DAO {
@@ -46,6 +45,38 @@ public class DAO {
 
 //        Class.forName(dbDriver);
         return null;
+    }
+
+    public static List<User> getUsersWithVisitTime(String givenDate) {
+        List<User> users = new ArrayList<>();
+        try (Connection c = getConnection();
+             PreparedStatement ps = c.prepareStatement("SELECT * FROM visitor JOIN guestbook ON visitor.id = guestbook.visitor_id WHERE CAST(time as DATE) <= '" + givenDate + "'");
+             ResultSet resultSet = ps.executeQuery();) {
+            while (resultSet.next()) {
+                int id = resultSet.getInt(1);
+                String fname = resultSet.getString(2);
+                String lname = resultSet.getString(3);
+                String email = resultSet.getString(4);
+                String dob = resultSet.getString(5);
+                String tel = resultSet.getString(6);
+                String country = resultSet.getString(7);
+                String city = resultSet.getString(8);
+                users.add(new User(id, fname, lname, email, dob, tel, country, city));
+            }
+            ObjectMapper mapper = new ObjectMapper();
+            String jsonArray = mapper.writeValueAsString(users);
+            FileWriter fw = new FileWriter("array.txt");
+            fw.write(jsonArray);
+            fw.close();
+            System.out.println(jsonArray);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return users;
     }
 
     public static List<User> getUsers() {
@@ -138,6 +169,7 @@ public class DAO {
                 String city = resultSet.getString(8);
                 users.add(new User(id, fname, lname, email, dob, tel, country, city));
             }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
