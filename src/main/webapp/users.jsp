@@ -19,7 +19,7 @@
         <th> </th>
     </tr>
 
-    <c:forEach items="${requestScope.users}" var="guest">
+    <c:forEach items="${requestScope.visitors}" var="guest">
         <tr>
             <td>${guest.id}</td>
             <td>${guest.fname}</td>
@@ -29,12 +29,12 @@
             <td>+${guest.tel}</td>
             <td>${guest.country}</td>
             <td>${guest.city}</td>
-            <td><a href="users/delete?lname=${guest.lname}"><img src="minus.png"/></a></td>
+            <td><a href="visitors/delete?lname=${guest.lname}"><img src="minus.png"/></a></td>
         </tr>
     </c:forEach>
 </table>
 
-    <form action = "/users" method="post">
+    <form action = "/visitors" method="post">
         <p><b>Country:</b><br>
             <input type="text" name="country" size="40">
         </p>

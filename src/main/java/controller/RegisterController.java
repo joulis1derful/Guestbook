@@ -1,6 +1,9 @@
 package controller;
 
-import persistence.DAO;
+import model.Visitor;
+import persistence.VisitorDAOImpl;
+import service.VisitorService;
+import service.VisitorServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +14,12 @@ import java.io.IOException;
 
 @WebServlet(name = "RegisterController", urlPatterns = "/register")
 public class RegisterController extends HttpServlet {
+    private VisitorService visitorService;
+    public RegisterController() {
+        super();
+        visitorService = new VisitorServiceImpl();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String fname = request.getParameter("fname");
         String lname = request.getParameter("lname");
@@ -19,7 +28,8 @@ public class RegisterController extends HttpServlet {
         String tel = request.getParameter("tel");
         String country = request.getParameter("country");
         String city = request.getParameter("city");
-        DAO.insertToDb(fname, lname, email, dob, tel, country, city);
+        Visitor visitor = new Visitor(fname, lname, email, dob, tel, country, city);
+        visitorService.insertVisitor(visitor);
         response.sendRedirect("/users");
     }
 

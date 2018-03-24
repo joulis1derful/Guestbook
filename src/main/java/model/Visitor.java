@@ -1,18 +1,36 @@
 package model;
 
-public class User {
+import org.hibernate.annotations.GenericGenerator;
+
+import javax.persistence.*;
+
+@Entity
+@Table(name = "visitor")
+public class Visitor {
+   @Id
+   @GeneratedValue(generator = "increment")
+   @GenericGenerator(name = "increment", strategy = "increment")
    private int id;
+   @Column
    private String fname;
+   @Column
    private String lname;
+   @Column
    private String email;
+   @Column
    private String dob;
+   @Column
    private String tel;
+   @Column
    private String country;
+   @Column
    private String city;
 
-    public User(int id, String fname, String lname, String email, String dob, String tel, String country, String city)
+    public Visitor() {
+    }
+
+    public Visitor(String fname, String lname, String email, String dob, String tel, String country, String city)
     {
-        this.id = id;
         this.fname = fname;
         this.lname = lname;
         this.email = email;
@@ -84,7 +102,7 @@ public class User {
 
     @Override
     public String toString() {
-        return "model.User{" +
+        return "model.Visitor{" +
                 "fname='" + fname + '\'' +
                 ", lname='" + lname + '\'' +
                 ", email='" + email + '\'' +

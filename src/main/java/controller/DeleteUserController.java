@@ -1,6 +1,8 @@
 package controller;
 
-import persistence.DAO;
+import persistence.VisitorDAOImpl;
+import service.VisitorService;
+import service.VisitorServiceImpl;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -8,17 +10,22 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.sql.SQLException;
 
 @WebServlet(name = "DeleteUserController", urlPatterns = "/users/delete")
 public class DeleteUserController extends HttpServlet {
+    private VisitorService visitorService;
+    public DeleteUserController() {
+        super();
+        visitorService = new VisitorServiceImpl();
+    }
+
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String lname = request.getParameter("lname");
-        DAO.deletePost(lname);
+        String lname = request.getParameter("id");
+        visitorService.removeVisitor(lname);
         response.sendRedirect("/users");
     }
 }

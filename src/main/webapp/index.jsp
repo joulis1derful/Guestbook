@@ -8,7 +8,7 @@
 </head>
 <body>
 <div>
-  <a href="/users">Users</a> <br/><br/>
+  <a href="/visitors">Users</a> <br/><br/>
   <a href="/register">Register</a>
 </div>
 </body>
