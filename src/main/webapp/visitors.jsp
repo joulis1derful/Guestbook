@@ -41,12 +41,12 @@
     <button name="filter" type="submit">SUBMIT</button>
     </form>
 
-    <form action = "/join" method="get">
-        <p><b>Find records with date less than:</b><br>
-            <input type="text" name="date" size="40">
-        </p>
-        <button type="submit">SUBMIT</button>
-    </form>
+    <%--<form action = "/join" method="get">--%>
+        <%--<p><b>Find records with date less than:</b><br>--%>
+            <%--<input type="text" name="date" size="40">--%>
+        <%--</p>--%>
+        <%--<button type="submit">SUBMIT</button>--%>
+    <%--</form>--%>
         <br>
 <%--<table class="guests-table">--%>
 <%--<c:forEach items="${requestScope.filteredbycountry}" var="guest">--%>

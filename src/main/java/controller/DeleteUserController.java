@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet(name = "DeleteUserController", urlPatterns = "/users/delete")
+@WebServlet(name = "DeleteUserController", urlPatterns = "/visitors/delete")
 public class DeleteUserController extends HttpServlet {
     private VisitorService visitorService;
     public DeleteUserController() {
@@ -24,8 +24,8 @@ public class DeleteUserController extends HttpServlet {
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String lname = request.getParameter("id");
+        String lname = request.getParameter("lname");
         visitorService.removeVisitor(lname);
-        response.sendRedirect("/users");
+        response.sendRedirect("/visitors");
     }
 }

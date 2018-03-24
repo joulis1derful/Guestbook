@@ -38,9 +38,9 @@ public class VisitorDAOImpl implements VisitorDAO {
 
     @Override
     public void removeVisitor(String lname) {
-        TypedQuery<Visitor> query = entityManager.createQuery("SELECT id from Visitor v where lname=?1", Visitor.class);
+        TypedQuery<Visitor> query = entityManager.createQuery("SELECT v from Visitor v where lname=?1", Visitor.class);
         query.setParameter(1, lname);
-        Visitor visitor = query.getResultList().get(0);
+        Visitor visitor = findVisitor(query.getResultList().get(0).getId());
         if(visitor != null) {
             entityManager.getTransaction().begin();
             entityManager.remove(visitor);

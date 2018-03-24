@@ -30,7 +30,7 @@ public class RegisterController extends HttpServlet {
         String city = request.getParameter("city");
         Visitor visitor = new Visitor(fname, lname, email, dob, tel, country, city);
         visitorService.insertVisitor(visitor);
-        response.sendRedirect("/users");
+        response.sendRedirect("/visitors");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
