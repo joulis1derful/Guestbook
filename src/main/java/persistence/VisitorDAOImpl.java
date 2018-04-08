@@ -1,58 +1,95 @@
 package persistence;
 
-import model.Guestbook;
 import model.Visitor;
 import util.EntityManagerUtility;
 
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
+import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
 import java.util.List;
 
+@Transactional
 public class VisitorDAOImpl implements VisitorDAO {
     private EntityManager entityManager;
 
-    public VisitorDAOImpl() {
-        EntityManagerFactory entityManagerFactory = EntityManagerUtility.getEntityManagerFactory();
-        this.entityManager = entityManagerFactory.createEntityManager();
-    }
-
     @Override
-    public Visitor insertVisitor(Visitor visitor) {
-        entityManager.getTransaction().begin();
-        entityManager.persist(visitor);
-        entityManager.getTransaction().commit();
-        return visitor;
+    public void insertVisitor(Visitor visitor) {
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        try {
+            entityManager.getTransaction().begin();
+            entityManager.persist(visitor);
+            entityManager.getTransaction().commit();
+        } catch(RollbackException e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
     }
 
     @Override
     public Visitor findVisitor(int id) {
-        return entityManager.find(Visitor.class, id);
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        Visitor visitor = null;
+        try {
+            visitor = entityManager.find(Visitor.class, id);
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+        return visitor;
     }
 
     @Override
     public List<Visitor> findAllVisitors() {
-        TypedQuery<Visitor> query = entityManager.createQuery("SELECT v from Visitor v", Visitor.class);
-        return query.getResultList();
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        List<Visitor> visitors = new ArrayList<>();
+        try {
+            TypedQuery<Visitor> query = entityManager.createQuery("SELECT v from Visitor v", Visitor.class);
+            visitors = query.getResultList();
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+        return visitors;
     }
 
     @Override
     public void removeVisitor(String lname) {
-        TypedQuery<Visitor> query = entityManager.createQuery("SELECT v from Visitor v where lname=?1", Visitor.class);
-        query.setParameter(1, lname);
-        Visitor visitor = findVisitor(query.getResultList().get(0).getId());
-        if(visitor != null) {
-            entityManager.getTransaction().begin();
-            entityManager.remove(visitor);
-            entityManager.getTransaction().commit();
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        try {
+            TypedQuery<Visitor> query = entityManager.createQuery("SELECT v from Visitor v where lname=?1", Visitor.class);
+            query.setParameter(1, lname);
+            Visitor visitor = findVisitor(query.getResultList().get(0).getId());
+            if(visitor != null) {
+                entityManager.getTransaction().begin();
+                entityManager.remove(visitor);
+                entityManager.getTransaction().commit();
+            }
+        } catch(Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
         }
     }
 
     @Override
     public List<Visitor> findVisitorsWithCountry(String country_name) {
-        TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v WHERE v.country = ?1", Visitor.class);
-        query.setParameter(1, country_name);
-        return query.getResultList();
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        List<Visitor> visitors = new ArrayList<>();
+        try {
+            TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v WHERE v.country = ?1", Visitor.class);
+            query.setParameter(1, country_name);
+            visitors = query.getResultList();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+        return visitors;
     }
 
 //    @Override

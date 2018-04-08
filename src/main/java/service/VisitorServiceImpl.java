@@ -14,8 +14,8 @@ public class VisitorServiceImpl implements VisitorService {
     }
 
     @Override
-    public Visitor insertVisitor(Visitor visitor) {
-        return visitorDAO.insertVisitor(visitor);
+    public void insertVisitor(Visitor visitor) {
+        visitorDAO.insertVisitor(visitor);
     }
 
     @Override

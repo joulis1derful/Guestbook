@@ -6,7 +6,6 @@ import javax.persistence.*;
 import java.util.Date;
 
 @Entity
-@Table(name = "guestbook")
 public class Guestbook {
     @Id
     @GeneratedValue(generator = "increment")

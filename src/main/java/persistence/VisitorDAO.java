@@ -5,7 +5,7 @@ import model.Visitor;
 import java.util.List;
 
 public interface VisitorDAO {
-    public Visitor insertVisitor(Visitor visitor);
+    public void insertVisitor(Visitor visitor);
 
     public Visitor findVisitor(int id);
 
