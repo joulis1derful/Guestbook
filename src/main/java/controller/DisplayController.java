@@ -27,13 +27,13 @@ public class DisplayController extends HttpServlet {
         String country = request.getParameter("country");
         visitors = visitorService.findVisitorsWithCountry(country);
         request.setAttribute("visitors", visitors);
+        request.setAttribute("countries", visitorService.getCountries());
         request.getRequestDispatcher("visitors.jsp").forward(request,response);
-//        response.sendRedirect("/visitors");
     }
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setAttribute("visitors", visitorService.findAllVisitors());
-//        request.setAttribute("filteredbycountry", visitors);
+        request.setAttribute("countries", visitorService.getCountries());
         request.getRequestDispatcher("visitors.jsp").forward(request,response);
     }
 }

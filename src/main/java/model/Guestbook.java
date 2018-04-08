@@ -3,10 +3,12 @@ package model;
 import org.hibernate.annotations.GenericGenerator;
 
 import javax.persistence.*;
+import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 
 @Entity
-public class Guestbook {
+public class Guestbook implements Serializable {
     @Id
     @GeneratedValue(generator = "increment")
     @GenericGenerator(name = "increment", strategy = "increment")
@@ -18,11 +20,7 @@ public class Guestbook {
     private int visitor_id;
 
     public Guestbook() {
-    }
-
-    public Guestbook(Date timestamp, int visitor_id) {
-        this.timestamp = timestamp;
-        this.visitor_id = visitor_id;
+        this.timestamp = new Date();
     }
 
     public int getId() {

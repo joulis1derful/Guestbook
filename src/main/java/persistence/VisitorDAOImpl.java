@@ -1,5 +1,6 @@
 package persistence;
 
+import model.Guestbook;
 import model.Visitor;
 import util.EntityManagerUtility;
 
@@ -7,8 +8,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.RollbackException;
 import javax.persistence.TypedQuery;
 import javax.transaction.Transactional;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Transactional
 public class VisitorDAOImpl implements VisitorDAO {
@@ -81,15 +81,38 @@ public class VisitorDAOImpl implements VisitorDAO {
         entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
         List<Visitor> visitors = new ArrayList<>();
         try {
-            TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v WHERE v.country = ?1", Visitor.class);
-            query.setParameter(1, country_name);
-            visitors = query.getResultList();
+            if(country_name.equals("All")) {
+                TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v", Visitor.class);
+                visitors = query.getResultList();
+            } else {
+                TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v WHERE v.country = ?1", Visitor.class);
+                query.setParameter(1, country_name);
+                visitors = query.getResultList();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
             entityManager.close();
         }
         return visitors;
+    }
+
+    @Override
+    public Set<String> getCountries() {
+        entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
+        List<Visitor> visitors = new ArrayList<>();
+        Set<String> countries = new HashSet<>();
+        countries.add("All");
+        try {
+            TypedQuery<Visitor> query = entityManager.createQuery("SELECT v FROM Visitor v", Visitor.class);
+            visitors = query.getResultList();
+            visitors.forEach(item -> { countries.add(item.getCountry()); });
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            entityManager.close();
+        }
+        return countries;
     }
 
 //    @Override

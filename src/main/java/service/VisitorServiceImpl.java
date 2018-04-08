@@ -5,6 +5,7 @@ import persistence.VisitorDAO;
 import persistence.VisitorDAOImpl;
 
 import java.util.List;
+import java.util.Set;
 
 public class VisitorServiceImpl implements VisitorService {
     private VisitorDAO visitorDAO;
@@ -36,6 +37,11 @@ public class VisitorServiceImpl implements VisitorService {
     @Override
     public List<Visitor> findVisitorsWithCountry(String country_name) {
         return visitorDAO.findVisitorsWithCountry(country_name);
+    }
+
+    @Override
+    public Set<String> getCountries() {
+        return visitorDAO.getCountries();
     }
 
 //    @Override
