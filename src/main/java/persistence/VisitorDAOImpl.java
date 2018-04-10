@@ -18,6 +18,8 @@ public class VisitorDAOImpl implements VisitorDAO {
     public void insertVisitor(Visitor visitor) {
         entityManager = EntityManagerUtility.getEntityManagerFactory().createEntityManager();
         try {
+            Guestbook guestbook = new Guestbook();
+            visitor.setGuestbook(guestbook);
             entityManager.getTransaction().begin();
             entityManager.persist(visitor);
             entityManager.getTransaction().commit();

@@ -25,6 +25,9 @@ public class Visitor implements Serializable {
    private String country;
    @Column
    private String city;
+//   @ManyToOne
+//   @JoinColumn(name = "guestbook_id")
+//   private Guestbook guestbook;
 
     public Visitor() {
     }
@@ -99,6 +102,14 @@ public class Visitor implements Serializable {
     public void setCity(String city) {
         this.city = city;
     }
+
+//    public Guestbook getGuestbook() {
+//        return guestbook;
+//    }
+//
+//    public void setGuestbook(Guestbook guestbook) {
+//        this.guestbook = guestbook;
+//    }
 
     @Override
     public String toString() {

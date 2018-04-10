@@ -16,8 +16,9 @@ public class Guestbook implements Serializable {
     @Column
     @Temporal(TemporalType.DATE)
     private Date timestamp;
-    @Column
-    private int visitor_id;
+//    @OneToMany(mappedBy = "guestbook")
+//    private List<Visitor> visitors;
+
 
     public Guestbook() {
         this.timestamp = new Date();
@@ -31,7 +32,7 @@ public class Guestbook implements Serializable {
         return timestamp;
     }
 
-    public int getVisitor_id() {
-        return visitor_id;
-    }
+    //    public List<Visitor> getVisitors() {
+//        return visitors;
+//    }
 }

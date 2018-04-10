@@ -6,16 +6,19 @@ import javax.persistence.*;
 import java.io.Serializable;
 
 @Entity
-public class Room implements Serializable {
+public class Page implements Serializable {
     @Id
     private int id;
     @Column
     private String name;
+//    @ManyToOne
+//    @JoinColumn(name = "page_id")
+//    private Guestbook guestbook;
 
-    public Room() {
+    public Page() {
     }
 
-    public Room(String name) {
+    public Page(String name) {
         this.name = name;
     }
 
@@ -27,4 +30,7 @@ public class Room implements Serializable {
         return name;
     }
 
+//    public Guestbook getGuestbook() {
+//        return guestbook;
+//    }
 }
